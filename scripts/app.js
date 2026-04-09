@@ -111,17 +111,11 @@
       },
       settingsJson: {
         title: "settings_json",
-        body: "現在の詳細設定と属性固定を、ComfyUI互換の settings_json として書き出し・読込できます。",
+        body: "現在の詳細設定と属性固定を、現在の ComfyUI 設定に合わせた settings_json として保存・読込できます。",
         presetName: "保存名",
-        server: "ComfyUI URL",
-        savedPresets: "保存済みプリセット",
         export: "JSONを書き出し",
         import: "JSONを読む",
-        saveToComfy: "Comfyに保存",
-        refresh: "一覧更新",
-        loadFromComfy: "Comfyから読む",
-        connectionHint: "既定の接続先は http://127.0.0.1:8188 です。ComfyUI 起動中ならカスタムノード内の user_presets に保存されます。",
-        empty: "保存済みプリセットなし",
+        localHint: "ブラウザから JSON ファイルとして保存し、あとで読み戻せます。",
       },
       empty: {
         title: "まだ生成されていません",
@@ -190,6 +184,8 @@
       },
       meta: {
         base: "ベースプロンプト",
+        includeBasePrompt: "ベースプロンプトを含める",
+        includeBasePromptHint: "オフにすると、生成結果と settings_json の両方でベースプロンプトを使いません。",
         baseHint: "ここで変更しても内部ファイルは書き換わらず、この画面上の生成にだけ反映されます。",
         currentSettings: "現在の設定",
         persistence: "保存",
@@ -225,7 +221,7 @@
         historyUnpinnedTitle: "ピンを外しました",
         historyUnpinnedBody: "この履歴は通常の並びに戻ります。",
         missingDataTitle: "データ不足",
-        missingDataBody: "ベースプロンプトと少なくとも1つのカテゴリファイルが必要です。",
+        missingDataBody: "少なくとも1つのカテゴリファイルが必要です。",
         historyClearedTitle: "履歴を削除しました",
         historyClearedBody: "保存していた生成結果を消去しました。",
         presetAppliedTitle: "プリセットを適用しました",
@@ -235,21 +231,9 @@
         settingsExportedTitle: "書き出しました",
         settingsExportedBody: "settings_json をダウンロードしました。",
         settingsImportedTitle: "読み込みました",
-        settingsImportedBody: "settings_json を反映して再生成しました。",
+        settingsImportedBody: "settings_json を反映しました。",
         settingsImportFailedTitle: "読み込み失敗",
         settingsImportFailedBody: "JSON の形式を確認してください。",
-        comfyPresetSavedTitle: "Comfyに保存しました",
-        comfyPresetSavedBody: "{name} を user_presets に保存しました。",
-        comfyPresetLoadedTitle: "Comfyから読み込みました",
-        comfyPresetLoadedBody: "{name} を反映して再生成しました。",
-        comfyPresetListTitle: "一覧を更新しました",
-        comfyPresetListBody: "{count} 件のプリセットを取得しました。",
-        comfyConnectionFailedTitle: "ComfyUI に接続できません",
-        comfyConnectionFailedBody: "URL と ComfyUI の起動状態を確認してください。",
-        comfyPresetNameRequiredTitle: "保存名が必要です",
-        comfyPresetNameRequiredBody: "保存名を入れてから保存してください。",
-        comfyPresetMissingTitle: "プリセット未選択",
-        comfyPresetMissingBody: "読み込むプリセットを選んでください。",
       },
       storage: {
         saved: "ローカルに保存済み",
@@ -324,17 +308,11 @@
       },
       settingsJson: {
         title: "settings_json",
-        body: "Export and import the current advanced settings and fixed traits as ComfyUI-compatible settings_json.",
-        presetName: "Preset Name",
-        server: "ComfyUI URL",
-        savedPresets: "Saved Presets",
+        body: "Export and import the current advanced settings and fixed traits as settings_json aligned with the current ComfyUI settings format.",
+        presetName: "File Name",
         export: "Export JSON",
         import: "Import JSON",
-        saveToComfy: "Save to Comfy",
-        refresh: "Refresh List",
-        loadFromComfy: "Load from Comfy",
-        connectionHint: "The default target is http://127.0.0.1:8188. When ComfyUI is running, presets are saved into this custom node's user_presets folder.",
-        empty: "No saved presets",
+        localHint: "Save the current setup as a local JSON file and import it later.",
       },
       empty: {
         title: "No result generated yet",
@@ -403,6 +381,8 @@
       },
       meta: {
         base: "Base Prompt",
+        includeBasePrompt: "Include base prompt",
+        includeBasePromptHint: "When disabled, the base prompt is omitted from both generation and settings_json export.",
         baseHint: "Changes here do not rewrite the source file. They only affect generation in this UI.",
         currentSettings: "Current Settings",
         persistence: "Persistence",
@@ -438,7 +418,7 @@
         historyUnpinnedTitle: "Unpinned",
         historyUnpinnedBody: "This history item is back in the normal flow.",
         missingDataTitle: "Missing data",
-        missingDataBody: "Add a base prompt and at least one category file.",
+        missingDataBody: "Add at least one category file.",
         historyClearedTitle: "History cleared",
         historyClearedBody: "Saved results were removed.",
         presetAppliedTitle: "Preset applied",
@@ -448,21 +428,9 @@
         settingsExportedTitle: "Exported",
         settingsExportedBody: "settings_json was downloaded.",
         settingsImportedTitle: "Imported",
-        settingsImportedBody: "settings_json was applied and regenerated.",
+        settingsImportedBody: "settings_json was applied.",
         settingsImportFailedTitle: "Import failed",
         settingsImportFailedBody: "Please check the JSON format.",
-        comfyPresetSavedTitle: "Saved to Comfy",
-        comfyPresetSavedBody: "{name} was saved into user_presets.",
-        comfyPresetLoadedTitle: "Loaded from Comfy",
-        comfyPresetLoadedBody: "{name} was applied and regenerated.",
-        comfyPresetListTitle: "Preset list refreshed",
-        comfyPresetListBody: "{count} presets were fetched.",
-        comfyConnectionFailedTitle: "Could not connect to ComfyUI",
-        comfyConnectionFailedBody: "Check the URL and make sure ComfyUI is running.",
-        comfyPresetNameRequiredTitle: "Preset name required",
-        comfyPresetNameRequiredBody: "Enter a preset name before saving.",
-        comfyPresetMissingTitle: "No preset selected",
-        comfyPresetMissingBody: "Select a preset to load.",
       },
       storage: {
         saved: "Saved locally",
@@ -548,7 +516,6 @@
   const storageState = {
     available: true,
   };
-  const COMFY_DEFAULT_URL = "http://127.0.0.1:8188";
   const FIXED_KEY_TO_CATEGORY_KEY = {
     hair_style: "hairStyle",
     hair_color: "hairColor",
@@ -592,6 +559,7 @@
     clearFixedBtn: document.getElementById("clearFixedBtn"),
     clearHistoryBtn: document.getElementById("clearHistoryBtn"),
     statsGrid: document.getElementById("statsGrid"),
+    includeBasePromptInput: document.getElementById("includeBasePromptInput"),
     basePromptInput: document.getElementById("basePromptInput"),
     basePromptStatus: document.getElementById("basePromptStatus"),
     resetBasePromptBtn: document.getElementById("resetBasePromptBtn"),
@@ -602,15 +570,10 @@
     accessoryProbabilityInput: document.getElementById("accessoryProbabilityInput"),
     accessoryDistribution: document.getElementById("accessoryDistribution"),
     accessoryDistributionNote: document.getElementById("accessoryDistributionNote"),
-    comfyPresetNameInput: document.getElementById("comfyPresetNameInput"),
-    comfyServerUrlInput: document.getElementById("comfyServerUrlInput"),
+    settingsPresetNameInput: document.getElementById("settingsPresetNameInput"),
     exportSettingsJsonBtn: document.getElementById("exportSettingsJsonBtn"),
     importSettingsJsonBtn: document.getElementById("importSettingsJsonBtn"),
     importSettingsJsonInput: document.getElementById("importSettingsJsonInput"),
-    saveComfyPresetBtn: document.getElementById("saveComfyPresetBtn"),
-    refreshComfyPresetsBtn: document.getElementById("refreshComfyPresetsBtn"),
-    comfyPresetSelect: document.getElementById("comfyPresetSelect"),
-    loadComfyPresetBtn: document.getElementById("loadComfyPresetBtn"),
     directEditTriggers: Array.from(document.querySelectorAll("[data-direct-edit]")),
     presetButtons: Array.from(document.querySelectorAll("[data-preset]")),
     resetSettingsBtn: document.getElementById("resetSettingsBtn"),
@@ -633,7 +596,6 @@
   let currentRaw = "";
   let currentFmt = "";
   let currentResult = null;
-  let comfyPresetNames = [];
   let historyIdCounter = 0;
   let toastTimer = null;
 
@@ -827,10 +789,9 @@
     return {
       bustWeights: Object.assign({}, preset.bustWeights),
       accessoryProbability: preset.accessoryProbability,
+      includeBasePrompt: false,
       basePromptOverride: "",
-      comfyServerUrl: COMFY_DEFAULT_URL,
       presetName: "",
-      selectedComfyPresetName: "",
     };
   }
 
@@ -842,22 +803,18 @@
         candidate && candidate.accessoryProbability,
         defaults.accessoryProbability
       ),
+      includeBasePrompt:
+        candidate && hasOwnKey(candidate, "includeBasePrompt")
+          ? Boolean(candidate.includeBasePrompt)
+          : true,
       basePromptOverride:
         candidate && typeof candidate.basePromptOverride === "string"
           ? candidate.basePromptOverride
           : "",
-      comfyServerUrl:
-        candidate && typeof candidate.comfyServerUrl === "string"
-          ? normalizeComfyServerUrl(candidate.comfyServerUrl)
-          : defaults.comfyServerUrl,
       presetName:
         candidate && typeof candidate.presetName === "string"
           ? candidate.presetName.trim()
           : defaults.presetName,
-      selectedComfyPresetName:
-        candidate && typeof candidate.selectedComfyPresetName === "string"
-          ? candidate.selectedComfyPresetName.trim()
-          : defaults.selectedComfyPresetName,
     };
 
     BUST_KEYS.forEach(function (key) {
@@ -954,17 +911,6 @@
     return clampProbability(settings.accessoryProbability, PRESETS[DEFAULT_PRESET_KEY].accessoryProbability);
   }
 
-  function normalizeComfyServerUrl(value) {
-    const fallback = COMFY_DEFAULT_URL;
-    const text = String(value || "").trim();
-
-    if (!text) {
-      return fallback;
-    }
-
-    return text.replace(/\/+$/, "") || fallback;
-  }
-
   function getCurrentPresetName() {
     const text = String(settings.presetName || "").trim();
     if (text) {
@@ -984,11 +930,15 @@
     return String(preset.label.en || preset.label.jp || "Balanced");
   }
 
-  function getEffectiveBasePrompt() {
+  function getConfiguredBasePrompt() {
     const override = typeof settings.basePromptOverride === "string"
       ? settings.basePromptOverride.trim()
       : "";
     return override || promptData.basePrompt;
+  }
+
+  function getEffectiveBasePrompt() {
+    return settings.includeBasePrompt ? getConfiguredBasePrompt() : "";
   }
 
   function clearCurrentResult() {
@@ -1020,7 +970,8 @@
 
   function buildSettingsJsonPayload() {
     return {
-      base_prompt: getEffectiveBasePrompt(),
+      base_prompt: getConfiguredBasePrompt(),
+      include_base_prompt: Boolean(settings.includeBasePrompt),
       preset: getComfyPresetLabelKey(),
       fixed: {
         hair_style: getFixedSettingValue("hairStyle"),
@@ -1094,6 +1045,10 @@
 
     return {
       basePrompt: payload && typeof payload.base_prompt === "string" ? payload.base_prompt : "",
+      includeBasePrompt:
+        payload && hasOwnKey(payload, "include_base_prompt")
+          ? Boolean(payload.include_base_prompt)
+          : Boolean(payload && payload.base_prompt),
       accessoryProbability: clampProbability(
         payload && payload.accessory_probability,
         PRESETS[DEFAULT_PRESET_KEY].accessoryProbability
@@ -1114,6 +1069,7 @@
     const imported = sanitizeImportedSettingsPayload(candidate);
     settings.bustWeights = Object.assign({}, imported.bustWeights);
     settings.accessoryProbability = imported.accessoryProbability;
+    settings.includeBasePrompt = imported.includeBasePrompt;
     settings.basePromptOverride = imported.basePrompt && imported.basePrompt !== promptData.basePrompt
       ? imported.basePrompt
       : "";
@@ -1143,123 +1099,6 @@
     anchor.remove();
     URL.revokeObjectURL(href);
     showToast(t("toast.settingsExportedTitle"), t("toast.settingsExportedBody"));
-  }
-
-  function renderComfyPresetOptions() {
-    const selectedName = settings.selectedComfyPresetName;
-
-    if (!comfyPresetNames.length) {
-      els.comfyPresetSelect.innerHTML = `<option value="">${escapeHtml(t("settingsJson.empty"))}</option>`;
-      els.comfyPresetSelect.value = "";
-      settings.selectedComfyPresetName = "";
-      els.loadComfyPresetBtn.disabled = true;
-      return;
-    }
-
-    els.comfyPresetSelect.innerHTML = comfyPresetNames
-      .map(function (name) {
-        return `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`;
-      })
-      .join("");
-
-    els.comfyPresetSelect.value = comfyPresetNames.includes(selectedName)
-      ? selectedName
-      : comfyPresetNames[0];
-    settings.selectedComfyPresetName = els.comfyPresetSelect.value;
-    els.loadComfyPresetBtn.disabled = false;
-  }
-
-  async function fetchComfyJson(path, options) {
-    const baseUrl = normalizeComfyServerUrl(settings.comfyServerUrl);
-    const response = await fetch(`${baseUrl}${path}`, options);
-    let payload = null;
-
-    try {
-      payload = await response.json();
-    } catch (error) {
-      payload = null;
-    }
-
-    if (!response.ok) {
-      const message = payload && payload.error ? payload.error : response.statusText;
-      throw new Error(message || "Request failed");
-    }
-
-    return payload;
-  }
-
-  async function refreshComfyPresetList(options) {
-    try {
-      const payload = await fetchComfyJson("/oc/settings-presets");
-      comfyPresetNames = Array.isArray(payload.presets) ? payload.presets : [];
-      renderComfyPresetOptions();
-      saveSettings();
-
-      if (!(options && options.silent)) {
-        showToast(
-          t("toast.comfyPresetListTitle"),
-          t("toast.comfyPresetListBody", { count: comfyPresetNames.length })
-        );
-      }
-    } catch (error) {
-      if (!(options && options.silent)) {
-        showToast(t("toast.comfyConnectionFailedTitle"), t("toast.comfyConnectionFailedBody"));
-      }
-    }
-  }
-
-  async function savePresetToComfy() {
-    const presetName = getCurrentPresetName();
-
-    if (!presetName) {
-      showToast(t("toast.comfyPresetNameRequiredTitle"), t("toast.comfyPresetNameRequiredBody"));
-      return;
-    }
-
-    try {
-      const payload = await fetchComfyJson("/oc/settings-presets", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: presetName,
-          settings: buildSettingsJsonPayload(),
-        }),
-      });
-
-      settings.selectedComfyPresetName = payload.name;
-      saveSettings();
-      await refreshComfyPresetList({ silent: true });
-      showToast(
-        t("toast.comfyPresetSavedTitle"),
-        t("toast.comfyPresetSavedBody", { name: payload.name })
-      );
-    } catch (error) {
-      showToast(t("toast.comfyConnectionFailedTitle"), t("toast.comfyConnectionFailedBody"));
-    }
-  }
-
-  async function loadPresetFromComfy() {
-    const presetName = String(settings.selectedComfyPresetName || "").trim();
-
-    if (!presetName) {
-      showToast(t("toast.comfyPresetMissingTitle"), t("toast.comfyPresetMissingBody"));
-      return;
-    }
-
-    try {
-      const payload = await fetchComfyJson(`/oc/settings-presets/${encodeURIComponent(presetName)}`);
-      settings.presetName = presetName;
-      settings.selectedComfyPresetName = presetName;
-      applySettingsJsonPayload(payload);
-      showToast(
-        t("toast.comfyPresetLoadedTitle"),
-        t("toast.comfyPresetLoadedBody", { name: presetName })
-      );
-    } catch (error) {
-      showToast(t("toast.comfyConnectionFailedTitle"), t("toast.comfyConnectionFailedBody"));
-    }
   }
 
   function renderDistributionChart(element, items) {
@@ -1309,18 +1148,19 @@
       })
       .join("");
 
-    const effectiveBasePrompt = getEffectiveBasePrompt();
-    const hasOverride = effectiveBasePrompt !== promptData.basePrompt;
+    const configuredBasePrompt = getConfiguredBasePrompt();
+    const hasOverride = configuredBasePrompt !== promptData.basePrompt;
 
     if (syncBasePrompt) {
       els.basePromptInput.value = settings.basePromptOverride || "";
+      els.includeBasePromptInput.checked = Boolean(settings.includeBasePrompt);
     }
 
     els.basePromptInput.placeholder = promptData.basePrompt;
     els.basePromptStatus.textContent = hasOverride ? t("storage.custom") : t("storage.default");
     els.basePromptStatus.classList.toggle("is-active", hasOverride);
     els.resetBasePromptBtn.disabled = !hasOverride;
-    els.comfyPresetNameInput.placeholder = currentResult && currentResult.name ? currentResult.name : "oc_settings";
+    els.settingsPresetNameInput.placeholder = currentResult && currentResult.name ? currentResult.name : "oc_settings";
   }
 
   function renderSettingsUI(options) {
@@ -1342,8 +1182,8 @@
 
       els.accessoryProbabilityInput.value = formatDecimal(accessoryProbability);
       els.accessoryProbabilityRange.value = formatDecimal(accessoryProbability);
-      els.comfyServerUrlInput.value = normalizeComfyServerUrl(settings.comfyServerUrl);
-      els.comfyPresetNameInput.value = settings.presetName || "";
+      els.includeBasePromptInput.checked = Boolean(settings.includeBasePrompt);
+      els.settingsPresetNameInput.value = settings.presetName || "";
     }
 
     els.presetButtons.forEach(function (button) {
@@ -1399,7 +1239,6 @@
     });
 
     renderStats({ syncBasePrompt: true });
-    renderComfyPresetOptions();
   }
 
   function normalizeTagType(type) {
@@ -1634,7 +1473,7 @@
 
     els.copyRawBtn.disabled = false;
     els.copyFmtBtn.disabled = false;
-    els.comfyPresetNameInput.placeholder = result.name || "oc_settings";
+    els.settingsPresetNameInput.placeholder = result.name || "oc_settings";
     renderFixedState();
   }
 
@@ -1786,7 +1625,7 @@
   function generate() {
     const effectiveBasePrompt = getEffectiveBasePrompt();
 
-    if (!effectiveBasePrompt || !promptData.categories.length) {
+    if (!promptData.categories.length) {
       showToast(t("toast.missingDataTitle"), t("toast.missingDataBody"));
       return;
     }
@@ -1806,7 +1645,7 @@
       .map(function (entry) {
         return entry.option.name;
       });
-    const raw = [effectiveBasePrompt].concat(variableParts).join(", ");
+    const raw = [effectiveBasePrompt].concat(variableParts).filter(Boolean).join(", ");
     const name = toName(nameParts);
     const fmt = `name: ${name}\npositive: ${raw}\nnegative: \n\n----------`;
     const result = {
@@ -1828,8 +1667,10 @@
 
   function applyPreset(presetKey, options) {
     const silent = Boolean(options && options.silent);
+    const preservedIncludeBasePrompt = settings.includeBasePrompt;
     const preservedBasePromptOverride = settings.basePromptOverride;
     settings = cloneSettingsFromPreset(presetKey);
+    settings.includeBasePrompt = preservedIncludeBasePrompt;
     settings.basePromptOverride = preservedBasePromptOverride;
     saveSettings();
     renderSettingsUI({ syncInputs: true });
@@ -1860,9 +1701,10 @@
     renderStats();
   }
 
-  function handleComfyServerUrlInput(rawValue) {
-    settings.comfyServerUrl = normalizeComfyServerUrl(rawValue);
+  function handleIncludeBasePromptInput(checked) {
+    settings.includeBasePrompt = Boolean(checked);
     saveSettings();
+    renderStats({ syncBasePrompt: true });
   }
 
   function handlePresetNameInput(rawValue) {
@@ -2026,22 +1868,16 @@
     handleBasePromptInput(els.basePromptInput.value);
   });
 
+  els.includeBasePromptInput.addEventListener("change", function () {
+    handleIncludeBasePromptInput(els.includeBasePromptInput.checked);
+  });
+
   els.resetBasePromptBtn.addEventListener("click", function () {
     resetBasePromptOverride();
   });
 
-  els.comfyServerUrlInput.addEventListener("change", function () {
-    handleComfyServerUrlInput(els.comfyServerUrlInput.value);
-    renderSettingsUI({ syncInputs: true });
-  });
-
-  els.comfyServerUrlInput.addEventListener("blur", function () {
-    handleComfyServerUrlInput(els.comfyServerUrlInput.value);
-    renderSettingsUI({ syncInputs: true });
-  });
-
-  els.comfyPresetNameInput.addEventListener("input", function () {
-    handlePresetNameInput(els.comfyPresetNameInput.value);
+  els.settingsPresetNameInput.addEventListener("input", function () {
+    handlePresetNameInput(els.settingsPresetNameInput.value);
   });
 
   els.exportSettingsJsonBtn.addEventListener("click", downloadSettingsJson);
@@ -2067,23 +1903,6 @@
     } finally {
       els.importSettingsJsonInput.value = "";
     }
-  });
-
-  els.refreshComfyPresetsBtn.addEventListener("click", function () {
-    refreshComfyPresetList();
-  });
-
-  els.saveComfyPresetBtn.addEventListener("click", async function () {
-    await savePresetToComfy();
-  });
-
-  els.comfyPresetSelect.addEventListener("change", function () {
-    settings.selectedComfyPresetName = els.comfyPresetSelect.value;
-    saveSettings();
-  });
-
-  els.loadComfyPresetBtn.addEventListener("click", async function () {
-    await loadPresetFromComfy();
   });
 
   els.directEditTriggers.forEach(function (trigger) {

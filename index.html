@@ -121,6 +121,13 @@
                       <h3 data-i18n="meta.base">ベースプロンプト</h3>
                       <button class="mini-btn" id="resetBasePromptBtn" type="button" data-i18n="button.resetBase">既定に戻す</button>
                     </div>
+                    <label class="toggle-line" for="includeBasePromptInput">
+                      <input id="includeBasePromptInput" type="checkbox" />
+                      <span class="toggle-copy">
+                        <span class="toggle-title" data-i18n="meta.includeBasePrompt">ベースプロンプトを含める</span>
+                        <span class="toggle-note" data-i18n="meta.includeBasePromptHint">オフにすると、生成結果と settings_json の両方でベースプロンプトを使いません。</span>
+                      </span>
+                    </label>
                     <textarea class="text-field meta-textarea" id="basePromptInput" rows="4"></textarea>
                     <div class="meta-inline-row">
                       <span class="meta-status-badge" id="basePromptStatus">デフォルト</span>
@@ -270,33 +277,15 @@
                     <div class="settings-json-grid">
                       <label class="field-stack">
                         <span class="field-label" data-i18n="settingsJson.presetName">保存名</span>
-                        <input class="text-field text-field-compact" id="comfyPresetNameInput" type="text" />
-                      </label>
-
-                      <label class="field-stack">
-                        <span class="field-label" data-i18n="settingsJson.server">ComfyUI URL</span>
-                        <input class="text-field text-field-compact" id="comfyServerUrlInput" type="text" />
+                        <input class="text-field text-field-compact" id="settingsPresetNameInput" type="text" />
                       </label>
                     </div>
 
                     <div class="button-grid">
                       <button class="mini-btn" id="exportSettingsJsonBtn" type="button" data-i18n="settingsJson.export">JSONを書き出し</button>
                       <button class="mini-btn" id="importSettingsJsonBtn" type="button" data-i18n="settingsJson.import">JSONを読む</button>
-                      <button class="mini-btn" id="saveComfyPresetBtn" type="button" data-i18n="settingsJson.saveToComfy">Comfyに保存</button>
-                      <button class="mini-btn" id="refreshComfyPresetsBtn" type="button" data-i18n="settingsJson.refresh">一覧更新</button>
                     </div>
-
-                    <div class="settings-json-grid settings-json-grid-single">
-                      <label class="field-stack">
-                        <span class="field-label" data-i18n="settingsJson.savedPresets">保存済みプリセット</span>
-                        <div class="inline-select-row">
-                          <select class="text-field text-field-compact select-field" id="comfyPresetSelect"></select>
-                          <button class="mini-btn" id="loadComfyPresetBtn" type="button" data-i18n="settingsJson.loadFromComfy">Comfyから読む</button>
-                        </div>
-                      </label>
-                    </div>
-
-                    <p class="field-note" data-i18n="settingsJson.connectionHint">既定の接続先は http://127.0.0.1:8188 です。ComfyUI 起動中ならカスタムノード内の user_presets に保存されます。</p>
+                    <p class="field-note" data-i18n="settingsJson.localHint">現在の詳細設定と属性固定を、ローカルファイルとして保存・読込できます。</p>
                     <input id="importSettingsJsonInput" type="file" accept=".json,application/json" hidden />
                   </section>
                 </div>
