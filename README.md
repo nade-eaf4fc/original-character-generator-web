@@ -1,6 +1,6 @@
 # original-character-generator-web
 
-Static web app for generating original character appearance prompts and exporting `settings_json` presets.
+Static web app for generating original character appearance prompts and exporting local `settings_json` files.
 
 ## Quick Start
 
@@ -9,7 +9,7 @@ Static web app for generating original character appearance prompts and exportin
 1. Open `index.html` in a browser.
 2. Generate a character idea from the main screen.
 3. Lock the traits you like and reroll.
-4. Use the advanced settings panel to adjust weights, export `settings_json`, or save presets for ComfyUI.
+4. Use the advanced settings panel to adjust weights, export `settings_json`, or import a saved JSON file.
 
 ### Option 2: git clone
 
@@ -27,8 +27,8 @@ Then open `index.html` or publish the directory with GitHub Pages.
 - Click-to-fix reroll flow
 - Preset-based weight switching
 - Live bust distribution and accessory probability preview
-- `settings_json` export and import
-- ComfyUI preset save/load integration through the local ComfyUI server
+- `settings_json` download and import
+- `include_base_prompt` toggle aligned with the current ComfyUI settings format
 - Local persistence with `localStorage`
 
 ## Structure
@@ -46,6 +46,7 @@ Then open `index.html` or publish the directory with GitHub Pages.
 
 - The advanced settings panel is closed by default.
 - The base prompt can be overridden without rewriting `data/base-prompt.js`.
+- `include_base_prompt` defaults to off.
 - Chest size uses five weighted entries: `flat`, `small`, `medium`, `large`, `xlarge`.
 - The raw weights do not need to add up to `1.00`.
 - The app normalizes the values internally before generation.
@@ -54,20 +55,15 @@ Then open `index.html` or publish the directory with GitHub Pages.
 - `none` is always calculated as `1 - p`.
 - Advanced settings are stored in `localStorage` and restored on reload.
 
-## ComfyUI Integration
+## settings_json
 
 The advanced settings panel can:
 
-- export `settings_json`
+- download `settings_json`
 - import `settings_json`
-- save presets to ComfyUI
-- load presets from ComfyUI
+- keep the format aligned with the current `comfyui-original-character-generator` settings
 
-Default ComfyUI target:
-
-- `http://127.0.0.1:8188`
-
-This works with the companion repository:
+Companion repository:
 
 - `comfyui-original-character-generator`
 
@@ -95,3 +91,7 @@ Each preset updates both bust weighting and accessory probability.
 ## Acknowledgements
 
 Built with development assistance from OpenAI Codex, powered by GPT-5.4.
+
+## License
+
+This package is released under the MIT License.
