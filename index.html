@@ -117,6 +117,18 @@
               <div class="settings-grid">
                 <div class="settings-column">
                   <section class="settings-card">
+                    <div class="meta-item-head">
+                      <h3 data-i18n="meta.base">ベースプロンプト</h3>
+                      <button class="mini-btn" id="resetBasePromptBtn" type="button" data-i18n="button.resetBase">既定に戻す</button>
+                    </div>
+                    <textarea class="text-field meta-textarea" id="basePromptInput" rows="4"></textarea>
+                    <div class="meta-inline-row">
+                      <span class="meta-status-badge" id="basePromptStatus">デフォルト</span>
+                      <p class="meta-note" data-i18n="meta.baseHint">ここで変更しても内部ファイルは書き換わらず、この画面上の生成にだけ反映されます。</p>
+                    </div>
+                  </section>
+
+                  <section class="settings-card">
                     <div class="settings-head">
                       <div>
                         <h3 data-i18n="preset.title">プリセット</h3>
@@ -270,17 +282,6 @@
               <div class="stats-grid" id="statsGrid"></div>
 
               <div class="meta-list">
-                <article class="meta-item">
-                  <div class="meta-item-head">
-                    <h3 data-i18n="meta.base">ベースプロンプト</h3>
-                    <button class="mini-btn" id="resetBasePromptBtn" type="button" data-i18n="button.resetBase">既定に戻す</button>
-                  </div>
-                  <textarea class="text-field meta-textarea" id="basePromptInput" rows="4"></textarea>
-                  <div class="meta-inline-row">
-                    <span class="meta-status-badge" id="basePromptStatus">デフォルト</span>
-                    <p class="meta-note" data-i18n="meta.baseHint">ここで変更しても内部ファイルは書き換わらず、この画面上の生成にだけ反映されます。</p>
-                  </div>
-                </article>
                 <article class="meta-item">
                   <h3 data-i18n="meta.currentSettings">現在の設定</h3>
                   <p id="settingsPreview"></p>
