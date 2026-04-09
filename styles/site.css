@@ -304,7 +304,7 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.025);
   overflow: hidden;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
 }
 
@@ -339,6 +339,7 @@ h1 {
 
 .overview-body {
   padding: 2px 14px 14px;
+  min-height: 320px;
   max-height: min(42vh, 420px);
   overflow-y: auto;
   scrollbar-width: thin;
@@ -632,6 +633,55 @@ button {
   line-height: 1.7;
 }
 
+.settings-json-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.settings-json-grid + .button-grid,
+.button-grid + .settings-json-grid,
+.settings-json-grid + .field-note {
+  margin-top: 12px;
+}
+
+.settings-json-grid-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.field-stack {
+  display: grid;
+  gap: 6px;
+}
+
+.field-label {
+  color: var(--text-main);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.text-field-compact {
+  min-height: 42px;
+  resize: none;
+}
+
+.select-field {
+  padding-right: 38px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.inline-select-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
 .weight-grid {
   display: grid;
   gap: 10px;
@@ -907,13 +957,17 @@ button {
 }
 
 .tag::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0.8;
-  box-shadow: none;
+  content: "\2022";
+  width: 0.9em;
+  height: auto;
+  display: inline-block;
+  flex: 0 0 auto;
+  color: currentColor;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  opacity: 0.92;
 }
 
 .tag-toggle {
@@ -989,6 +1043,31 @@ button {
   color: #8e99a7;
   background: rgba(18, 21, 26, 0.92);
   border-color: rgba(118, 128, 141, 0.14);
+}
+
+.tag.hair::before,
+.tag.hair-shape::before {
+  content: "\25C6";
+}
+
+.tag.hair-color::before {
+  content: "\25CF";
+}
+
+.tag.eye::before {
+  content: "\25C9";
+}
+
+.tag.acc::before {
+  content: "\2726";
+}
+
+.tag.bust::before {
+  content: "\25A0";
+}
+
+.tag.none::before {
+  content: "\25CB";
 }
 
 .lock-panel {
@@ -1470,6 +1549,12 @@ button {
   .settings-grid {
     grid-template-columns: 1fr;
   }
+
+  .settings-json-grid,
+  .button-grid,
+  .inline-select-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 1080px) {
@@ -1536,6 +1621,7 @@ button {
   }
 
   .overview-body {
+    min-height: 0;
     max-height: none;
     overflow: visible;
   }

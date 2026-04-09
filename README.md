@@ -1,41 +1,81 @@
-# OC Body Random Generator
+# original-character-generator-web
 
-Static OC prompt generator for GitHub Pages.
+Static web app for generating original character appearance prompts and exporting `settings_json` presets.
+
+## Quick Start
+
+### Option 1: Open locally
+
+1. Open `index.html` in a browser.
+2. Generate a character idea from the main screen.
+3. Lock the traits you like and reroll.
+4. Use the advanced settings panel to adjust weights, export `settings_json`, or save presets for ComfyUI.
+
+### Option 2: git clone
+
+```bash
+git clone https://github.com/<your-user>/original-character-generator-web.git
+cd original-character-generator-web
+```
+
+Then open `index.html` or publish the directory with GitHub Pages.
+
+## Features
+
+- JP / EN UI switching
+- Prompt generation from hairstyle, hair color, eye color, accessory, and bust size pools
+- Click-to-fix reroll flow
+- Preset-based weight switching
+- Live bust distribution and accessory probability preview
+- `settings_json` export and import
+- ComfyUI preset save/load integration through the local ComfyUI server
+- Local persistence with `localStorage`
 
 ## Structure
 
 - `index.html`
-  - Main document and UI markup
 - `styles/site.css`
-  - Dark UI styling, responsive layout, charts, and controls
 - `scripts/data-store.js`
-  - Shared registration helper for base prompt and category data
 - `scripts/app.js`
-  - Generator logic, advanced settings, localStorage persistence, presets, charts, copy flow, and history
 - `data/base-prompt.js`
-  - Base prompt text
 - `data/*.js`
-  - Category data files
+- `docs/images`
+- `examples`
 
 ## Advanced Settings
 
 - The advanced settings panel is closed by default.
-- The UI supports `JP / EN` switching and keeps the actual prompt vocabulary in English.
-- The base prompt can be overridden from the UI without rewriting `data/base-prompt.js`.
+- The base prompt can be overridden without rewriting `data/base-prompt.js`.
 - Chest size uses five weighted entries: `flat`, `small`, `medium`, `large`, `xlarge`.
-- Each chest weight accepts `0.00` to `1.00`.
 - The raw weights do not need to add up to `1.00`.
-- The app normalizes the values internally and shows the normalized distribution as horizontal charts.
-- If the chest weight total is `0.00`, generation falls back to the balanced preset and the UI shows that fallback state clearly.
-- Accessory generation uses one probability input for `has accessory`.
+- The app normalizes the values internally before generation.
+- If the chest weight total is `0.00`, generation falls back to the balanced preset.
+- Accessory generation uses one probability input for accessory presence.
 - `none` is always calculated as `1 - p`.
 - Advanced settings are stored in `localStorage` and restored on reload.
+
+## ComfyUI Integration
+
+The advanced settings panel can:
+
+- export `settings_json`
+- import `settings_json`
+- save presets to ComfyUI
+- load presets from ComfyUI
+
+Default ComfyUI target:
+
+- `http://127.0.0.1:8188`
+
+This works with the companion repository:
+
+- `comfyui-original-character-generator`
 
 ## History
 
 - The history keeps up to `10` recent results.
-- History items can be pinned to keep them prioritized at the top.
-- When the list exceeds the limit, older unpinned entries are removed first.
+- History items can be pinned.
+- Older unpinned entries are removed first when the list exceeds the limit.
 
 ## Presets
 
@@ -44,10 +84,10 @@ Static OC prompt generator for GitHub Pages.
 - `Curvy`
 - `Statement`
 
-Each preset updates both chest weighting and accessory probability.
+Each preset updates both bust weighting and accessory probability.
 
 ## Extending Data
 
 - Add or edit prompt pools in `data/*.js`.
 - Mark development-only items with `developmentOnly: true`.
-- In `production` mode those entries are filtered automatically.
+- In production mode those entries are filtered automatically.

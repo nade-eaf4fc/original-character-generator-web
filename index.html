@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <title>OC素体ジェネレーター</title>
+  <title>オリキャラジェネレーター</title>
   <link rel="stylesheet" href="styles/site.css" />
 </head>
 <body>
@@ -17,9 +17,9 @@
             <button class="lang-btn" id="langEnBtn" type="button" data-lang="en" data-i18n-title="lang.enTitle" title="Switch to English">EN</button>
           </div>
         </div>
-        <h1 data-i18n="hero.title">OC素体ジェネレーター</h1>
+        <h1 data-i18n="hero.title">オリキャラジェネレーター</h1>
         <p data-i18n="hero.body">
-          髪型・髪色・瞳色・アクセサリー・胸サイズを組み合わせて、OC素体のたたき台を生成します。
+          髪型・髪色・瞳色・アクセサリー・胸サイズを組み合わせて、オリキャラの外見案を生成します。
         </p>
       </div>
       <div class="hero-note">
@@ -107,7 +107,7 @@
                 <strong data-i18n="advanced.title">詳細設定</strong>
                 <span data-i18n="advanced.subtitle">胸サイズの重み、アクセサリー出現率、プリセットを調整します。</span>
               </div>
-              <span class="advanced-summary-meta" id="advancedSummaryMeta">繝舌Λ繝ｳ繧ｹ 繝励Μ繧ｻ繝・ヨ</span>
+              <span class="advanced-summary-meta" id="advancedSummaryMeta">Balanced</span>
               <span class="summary-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
               </span>
@@ -244,19 +244,60 @@
 
                     <div class="chart-block">
                       <div class="chart-head">
-                        <h4 data-i18n="chart.bust">閭ｸ繧ｵ繧､繧ｺ</h4>
-                        <span class="chart-note" id="bustFallbackBadge">迴ｾ蝨ｨ縺ｮ驥阪∩</span>
+                        <h4 data-i18n="chart.bust">胸サイズ</h4>
+                        <span class="chart-note" id="bustFallbackBadge">現在の重み</span>
                       </div>
                       <div class="chart-list" id="bustDistribution"></div>
                     </div>
 
                     <div class="chart-block">
                       <div class="chart-head">
-                        <h4 data-i18n="chart.accessory">繧｢繧ｯ繧ｻ繧ｵ繝ｪ繝ｼ</h4>
+                        <h4 data-i18n="chart.accessory">アクセサリー</h4>
                         <span class="chart-note" id="accessoryDistributionNote">あり / なし</span>
                       </div>
                       <div class="chart-list" id="accessoryDistribution"></div>
                     </div>
+                  </section>
+
+                  <section class="settings-card">
+                    <div class="settings-head">
+                      <div>
+                        <h3 data-i18n="settingsJson.title">settings_json</h3>
+                        <p data-i18n="settingsJson.body">現在の詳細設定と属性固定を、ComfyUI互換の settings_json として書き出し・読込できます。</p>
+                      </div>
+                    </div>
+
+                    <div class="settings-json-grid">
+                      <label class="field-stack">
+                        <span class="field-label" data-i18n="settingsJson.presetName">保存名</span>
+                        <input class="text-field text-field-compact" id="comfyPresetNameInput" type="text" />
+                      </label>
+
+                      <label class="field-stack">
+                        <span class="field-label" data-i18n="settingsJson.server">ComfyUI URL</span>
+                        <input class="text-field text-field-compact" id="comfyServerUrlInput" type="text" />
+                      </label>
+                    </div>
+
+                    <div class="button-grid">
+                      <button class="mini-btn" id="exportSettingsJsonBtn" type="button" data-i18n="settingsJson.export">JSONを書き出し</button>
+                      <button class="mini-btn" id="importSettingsJsonBtn" type="button" data-i18n="settingsJson.import">JSONを読む</button>
+                      <button class="mini-btn" id="saveComfyPresetBtn" type="button" data-i18n="settingsJson.saveToComfy">Comfyに保存</button>
+                      <button class="mini-btn" id="refreshComfyPresetsBtn" type="button" data-i18n="settingsJson.refresh">一覧更新</button>
+                    </div>
+
+                    <div class="settings-json-grid settings-json-grid-single">
+                      <label class="field-stack">
+                        <span class="field-label" data-i18n="settingsJson.savedPresets">保存済みプリセット</span>
+                        <div class="inline-select-row">
+                          <select class="text-field text-field-compact select-field" id="comfyPresetSelect"></select>
+                          <button class="mini-btn" id="loadComfyPresetBtn" type="button" data-i18n="settingsJson.loadFromComfy">Comfyから読む</button>
+                        </div>
+                      </label>
+                    </div>
+
+                    <p class="field-note" data-i18n="settingsJson.connectionHint">既定の接続先は http://127.0.0.1:8188 です。ComfyUI 起動中ならカスタムノード内の user_presets に保存されます。</p>
+                    <input id="importSettingsJsonInput" type="file" accept=".json,application/json" hidden />
                   </section>
                 </div>
               </div>
@@ -297,10 +338,10 @@
           <section class="history-section">
             <div class="history-head">
               <div class="section-title section-title-compact" style="margin-bottom: 0;">
-                <h2 data-i18n="history.title">螻･豁ｴ</h2>
-                <span id="historySubtitle" data-i18n="history.subtitle">譛譁ｰ10莉ｶ</span>
+                <h2 data-i18n="history.title">履歴</h2>
+                <span id="historySubtitle" data-i18n="history.subtitle">最新10件</span>
               </div>
-              <button class="icon-btn" id="clearHistoryBtn" type="button" data-i18n-title="history.clearTitle" title="螻･豁ｴ繧偵け繝ｪ繧｢">
+              <button class="icon-btn" id="clearHistoryBtn" type="button" data-i18n-title="history.clearTitle" title="履歴をクリア">
                 <span class="icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>
                 </span>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Web advanced settings placeholder</title>
+  <desc id="desc">Replace this placeholder with a screenshot of the advanced settings panel.</desc>
+  <rect width="1280" height="720" fill="#0d1118"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#192231" stroke="#53c2ff" stroke-width="2"/>
+  <text x="80" y="120" fill="#f5f7fb" font-size="42" font-family="Segoe UI, Noto Sans JP, sans-serif">Replace with PNG screenshot</text>
+  <text x="80" y="190" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Target: advanced settings panel</text>
+  <text x="80" y="245" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Show: bust weights, accessory rate, settings_json export/import</text>
+  <text x="80" y="300" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Tip: open the panel and keep the Comfy preset area visible</text>
+  <rect x="80" y="360" width="1120" height="240" rx="20" fill="#111821" stroke="#33516f" stroke-dasharray="12 10"/>
+  <text x="640" y="495" text-anchor="middle" fill="#6f83a0" font-size="32" font-family="Segoe UI, Noto Sans JP, sans-serif">advanced settings screenshot area</text>
+  <text x="640" y="545" text-anchor="middle" fill="#6f83a0" font-size="24" font-family="Segoe UI, Noto Sans JP, sans-serif">Replace this file or update the README image path later.</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Web main screen placeholder</title>
+  <desc id="desc">Replace this placeholder with a screenshot of the web app main screen.</desc>
+  <rect width="1280" height="720" fill="#0d1219"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#182130" stroke="#7c94ff" stroke-width="2"/>
+  <text x="80" y="120" fill="#f5f7fb" font-size="42" font-family="Segoe UI, Noto Sans JP, sans-serif">Replace with PNG screenshot</text>
+  <text x="80" y="190" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Target: web app main screen</text>
+  <text x="80" y="245" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Show: hero area, generated tags, raw prompt, formatted output</text>
+  <text x="80" y="300" fill="#9cb0ca" font-size="28" font-family="Segoe UI, Noto Sans JP, sans-serif">Tip: use a screenshot after one generation so the result area is visible</text>
+  <rect x="80" y="360" width="1120" height="240" rx="20" fill="#111821" stroke="#30465f" stroke-dasharray="12 10"/>
+  <text x="640" y="495" text-anchor="middle" fill="#6f83a0" font-size="32" font-family="Segoe UI, Noto Sans JP, sans-serif">main screen screenshot area</text>
+  <text x="640" y="545" text-anchor="middle" fill="#6f83a0" font-size="24" font-family="Segoe UI, Noto Sans JP, sans-serif">Replace this file or update the README image path later.</text>
+</svg>
