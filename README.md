@@ -14,7 +14,7 @@ Static web app for generating original character appearance prompts and exportin
 ### Option 2: git clone
 
 ```bash
-git clone https://github.com/<your-user>/original-character-generator-web.git
+git clone https://github.com/nade-eaf4fc/original-character-generator-web.git
 cd original-character-generator-web
 ```
 
@@ -91,3 +91,7 @@ Each preset updates both bust weighting and accessory probability.
 - Add or edit prompt pools in `data/*.js`.
 - Mark development-only items with `developmentOnly: true`.
 - In production mode those entries are filtered automatically.
+
+## Acknowledgements
+
+Built with development assistance from OpenAI Codex, powered by GPT-5.4.
