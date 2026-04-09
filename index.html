@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>OC素体ジェネレーター</title>
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="hero-head">
+          <div class="lang-switch" role="group" aria-label="言語切り替え" data-i18n-aria-label="lang.switch">
+            <button class="lang-btn" id="langJaBtn" type="button" data-lang="jp" data-i18n-title="lang.jpTitle" title="日本語表示に切り替え">JP</button>
+            <button class="lang-btn" id="langEnBtn" type="button" data-lang="en" data-i18n-title="lang.enTitle" title="Switch to English">EN</button>
+          </div>
+        </div>
+        <h1 data-i18n="hero.title">OC素体ジェネレーター</h1>
+        <p data-i18n="hero.body">
+          髪型・髪色・瞳色・アクセサリー・胸サイズを組み合わせて、OC素体のたたき台を生成します。
+        </p>
+      </div>
+      <div class="hero-note">
+        <div class="hero-note-title" data-i18n="hero.noteTitle">Fast, Then Precise</div>
+        <p data-i18n="hero.noteBody">
+          まず一度生成して、気に入った要素だけを固定しながら、流れを止めずに調整できます。
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="section-title">
+            <h2 data-i18n="section.generator">ジェネレーター</h2>
+            <span data-i18n="section.rerollHint">Space / Enter で再生成</span>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" id="generateBtn" type="button">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9.5 3.5 7 6l2.5 2.5"></path><path d="M7 6h6a5 5 0 0 1 5 5v1"></path><path d="m14.5 20.5 2.5-2.5-2.5-2.5"></path><path d="M17 18h-6a5 5 0 0 1-5-5v-1"></path></svg>
+              </span>
+              <span data-i18n="button.generate">生成する</span>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </span>
+            </button>
+            <button class="btn btn-ghost" id="copyRawBtn" type="button" disabled>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="2"></rect><path d="M5 15V7a2 2 0 0 1 2-2h8"></path></svg>
+              </span>
+              <span data-i18n="button.copyRaw">Rawをコピー</span>
+            </button>
+            <button class="btn btn-ghost" id="copyFmtBtn" type="button" disabled>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 4h8l4 4v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"></path><path d="M16 4v4h4"></path><path d="M9 13h6"></path><path d="M9 17h4"></path></svg>
+              </span>
+              <span data-i18n="button.copyFormatted">整形版をコピー</span>
+            </button>
+          </div>
+
+          <div class="result-surface" id="resultSurface">
+            <div class="empty-state" id="emptyState">
+              <div>
+                <h3 data-i18n="empty.title">まだ生成されていません</h3>
+                <p data-i18n="empty.body">
+                  まず1回生成すると、Raw Prompt、整形済み出力、現在の属性セットが表示されます。生成後はタグをクリックして、その属性だけ固定したまま再抽選できます。
+                </p>
+              </div>
+            </div>
+
+            <div class="tag-row" id="tagRow" hidden></div>
+
+            <div class="lock-panel" id="lockPanel" hidden>
+              <div class="lock-copy">
+                <strong data-i18n="lock.title">属性固定</strong>
+                <span id="lockStatus" data-i18n="lock.idle">タグをクリックすると次の再生成まで固定できます。</span>
+              </div>
+              <button class="btn btn-ghost lock-clear-btn" id="clearFixedBtn" type="button" disabled>
+                <span data-i18n="button.clearFixed">固定を解除</span>
+              </button>
+            </div>
+
+            <div class="output-card" id="rawCard" hidden>
+              <div class="output-head">
+                <h3 data-i18n="output.raw">Raw Prompt</h3>
+                <span class="toolbar-note" id="rawLength">0 chars</span>
+              </div>
+              <div class="output-body" id="rawOutput"></div>
+            </div>
+
+            <div class="output-card" id="fmtCard" hidden>
+              <div class="output-head">
+                <h3 data-i18n="output.formatted">整形済み出力</h3>
+                <span class="toolbar-note" data-i18n="output.formattedNote">GitHub Pages向けの単一HTMLで利用できます</span>
+              </div>
+              <div class="output-body mono" id="fmtOutput"></div>
+            </div>
+          </div>
+
+          <details class="advanced-panel" id="advancedSettings">
+            <summary class="advanced-summary">
+              <div class="advanced-summary-copy">
+                <strong data-i18n="advanced.title">詳細設定</strong>
+                <span data-i18n="advanced.subtitle">胸サイズの重み、アクセサリー出現率、プリセットを調整します。</span>
+              </div>
+              <span class="advanced-summary-meta" id="advancedSummaryMeta">繝舌Λ繝ｳ繧ｹ 繝励Μ繧ｻ繝・ヨ</span>
+              <span class="summary-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+            </summary>
+
+            <div class="advanced-content">
+              <div class="settings-grid">
+                <div class="settings-column">
+                  <section class="settings-card">
+                    <div class="settings-head">
+                      <div>
+                        <h3 data-i18n="preset.title">プリセット</h3>
+                        <p data-i18n="preset.body">各プリセットは胸サイズの重みとアクセサリー出現率をまとめて切り替えます。</p>
+                      </div>
+                    </div>
+
+                    <div class="preset-list" id="presetList">
+                      <button class="preset-btn" type="button" data-preset="balanced" data-i18n="preset.balanced">バランス</button>
+                      <button class="preset-btn" type="button" data-preset="petite" data-i18n="preset.petite">細身</button>
+                      <button class="preset-btn" type="button" data-preset="curvy" data-i18n="preset.curvy">メリハリ</button>
+                      <button class="preset-btn" type="button" data-preset="statement" data-i18n="preset.statement">強め</button>
+                      <button class="preset-btn" type="button" id="resetSettingsBtn" data-i18n="preset.reset">リセット</button>
+                    </div>
+
+                    <p class="field-note" data-i18n="preset.note">設定値はlocalStorageに保存され、再読込時に復元されます。</p>
+                  </section>
+
+                  <section class="settings-card">
+                    <div class="settings-head">
+                      <div>
+                        <h3 data-i18n="bust.title">胸サイズの重み</h3>
+                        <p data-i18n="bust.body">0.00から1.00の任意値を入力できます。内部で自動的に正規化されます。</p>
+                      </div>
+                      <span class="metric-badge" id="bustRawSum">Raw合計 0.00</span>
+                    </div>
+
+                    <div class="weight-grid">
+                      <label class="weight-row">
+                        <span class="weight-label">flat</span>
+                        <span class="input-stack">
+                          <span class="value-control" data-direct-edit="bustWeight-flat">
+                            <input class="range-field" id="bustWeight-flat-range" data-bust-range-key="flat" type="range" min="0" max="1" step="0.01" />
+                            <input class="number-field number-field-compact" id="bustWeight-flat" data-bust-key="flat" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                          </span>
+                          <span class="field-caption" data-i18n="bust.caption.flat">Prompt: flat chest</span>
+                        </span>
+                      </label>
+                      <label class="weight-row">
+                        <span class="weight-label">small</span>
+                        <span class="input-stack">
+                          <span class="value-control" data-direct-edit="bustWeight-small">
+                            <input class="range-field" id="bustWeight-small-range" data-bust-range-key="small" type="range" min="0" max="1" step="0.01" />
+                            <input class="number-field number-field-compact" id="bustWeight-small" data-bust-key="small" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                          </span>
+                          <span class="field-caption" data-i18n="bust.caption.small">Prompt: small breasts</span>
+                        </span>
+                      </label>
+                      <label class="weight-row">
+                        <span class="weight-label">medium</span>
+                        <span class="input-stack">
+                          <span class="value-control" data-direct-edit="bustWeight-medium">
+                            <input class="range-field" id="bustWeight-medium-range" data-bust-range-key="medium" type="range" min="0" max="1" step="0.01" />
+                            <input class="number-field number-field-compact" id="bustWeight-medium" data-bust-key="medium" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                          </span>
+                          <span class="field-caption" data-i18n="bust.caption.medium">Prompt: medium breasts</span>
+                        </span>
+                      </label>
+                      <label class="weight-row">
+                        <span class="weight-label">large</span>
+                        <span class="input-stack">
+                          <span class="value-control" data-direct-edit="bustWeight-large">
+                            <input class="range-field" id="bustWeight-large-range" data-bust-range-key="large" type="range" min="0" max="1" step="0.01" />
+                            <input class="number-field number-field-compact" id="bustWeight-large" data-bust-key="large" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                          </span>
+                          <span class="field-caption" data-i18n="bust.caption.large">Prompt: large breasts</span>
+                        </span>
+                      </label>
+                      <label class="weight-row">
+                        <span class="weight-label">xlarge</span>
+                        <span class="input-stack">
+                          <span class="value-control" data-direct-edit="bustWeight-xlarge">
+                            <input class="range-field" id="bustWeight-xlarge-range" data-bust-range-key="xlarge" type="range" min="0" max="1" step="0.01" />
+                            <input class="number-field number-field-compact" id="bustWeight-xlarge" data-bust-key="xlarge" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                          </span>
+                          <span class="field-caption" data-i18n="bust.caption.xlarge">Prompt: very large breasts</span>
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="status-banner" id="bustStatus"></div>
+                  </section>
+
+                  <section class="settings-card">
+                    <div class="settings-head">
+                      <div>
+                        <h3 data-i18n="accessory.title">アクセサリー出現率</h3>
+                        <p data-i18n="accessory.body">アクセサリーが付く確率を設定します。なし は常に 1 - p で自動計算されます。</p>
+                      </div>
+                      <span class="metric-badge" id="accessoryRateBadge">50.0% / 50.0%</span>
+                    </div>
+
+                    <label class="probability-line">
+                      <span class="probability-label" data-i18n="accessory.has">アクセサリーあり</span>
+                      <span class="value-control" data-direct-edit="accessoryProbabilityInput">
+                        <input class="range-field" id="accessoryProbabilityRange" type="range" min="0" max="1" step="0.01" />
+                        <input class="number-field number-field-compact" id="accessoryProbabilityInput" type="number" min="0" max="1" step="0.01" inputmode="decimal" />
+                      </span>
+                      <span class="probability-note" data-i18n="accessory.note">なし = 1 - p</span>
+                    </label>
+                  </section>
+                </div>
+
+                <div class="settings-column">
+                  <section class="settings-card settings-visual-card">
+                    <div class="settings-head">
+                      <div>
+                        <h3 data-i18n="chart.title">正規化後の分布</h3>
+                        <p data-i18n="chart.body">グラフはリアルタイムで更新され、生成時に使われる確率をそのまま表示します。</p>
+                      </div>
+                      <span class="storage-badge" id="storageBadge">ローカル保存済み</span>
+                    </div>
+
+                    <div class="chart-block">
+                      <div class="chart-head">
+                        <h4 data-i18n="chart.bust">閭ｸ繧ｵ繧､繧ｺ</h4>
+                        <span class="chart-note" id="bustFallbackBadge">迴ｾ蝨ｨ縺ｮ驥阪∩</span>
+                      </div>
+                      <div class="chart-list" id="bustDistribution"></div>
+                    </div>
+
+                    <div class="chart-block">
+                      <div class="chart-head">
+                        <h4 data-i18n="chart.accessory">繧｢繧ｯ繧ｻ繧ｵ繝ｪ繝ｼ</h4>
+                        <span class="chart-note" id="accessoryDistributionNote">あり / なし</span>
+                      </div>
+                      <div class="chart-list" id="accessoryDistribution"></div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <aside class="panel sidebar-panel">
+        <div class="panel-inner sidebar-panel-inner">
+          <details class="overview-panel" id="overviewPanel">
+            <summary class="overview-summary">
+              <div class="section-title section-title-compact">
+                <h2 data-i18n="overview.title">概要</h2>
+                <span data-i18n="overview.subtitle">現在の候補プール</span>
+              </div>
+              <span class="summary-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+            </summary>
+
+            <div class="overview-body">
+              <div class="stats-grid" id="statsGrid"></div>
+
+              <div class="meta-list">
+                <article class="meta-item">
+                  <div class="meta-item-head">
+                    <h3 data-i18n="meta.base">ベースプロンプト</h3>
+                    <button class="mini-btn" id="resetBasePromptBtn" type="button" data-i18n="button.resetBase">既定に戻す</button>
+                  </div>
+                  <textarea class="text-field meta-textarea" id="basePromptInput" rows="4"></textarea>
+                  <div class="meta-inline-row">
+                    <span class="meta-status-badge" id="basePromptStatus">デフォルト</span>
+                    <p class="meta-note" data-i18n="meta.baseHint">ここで変更しても内部ファイルは書き換わらず、この画面上の生成にだけ反映されます。</p>
+                  </div>
+                </article>
+                <article class="meta-item">
+                  <h3 data-i18n="meta.currentSettings">現在の設定</h3>
+                  <p id="settingsPreview"></p>
+                </article>
+                <article class="meta-item">
+                  <h3 data-i18n="meta.persistence">保存</h3>
+                  <p data-i18n="meta.persistenceBody">詳細設定はlocalStorageに保存され、再読込時に自動で復元されます。</p>
+                </article>
+              </div>
+            </div>
+          </details>
+
+          <section class="history-section">
+            <div class="history-head">
+              <div class="section-title section-title-compact" style="margin-bottom: 0;">
+                <h2 data-i18n="history.title">螻･豁ｴ</h2>
+                <span id="historySubtitle" data-i18n="history.subtitle">譛譁ｰ10莉ｶ</span>
+              </div>
+              <button class="icon-btn" id="clearHistoryBtn" type="button" data-i18n-title="history.clearTitle" title="螻･豁ｴ繧偵け繝ｪ繧｢">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>
+                </span>
+              </button>
+            </div>
+
+            <div class="history-list-shell">
+              <div class="history-list" id="historyList"></div>
+            </div>
+          </section>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="toast-title" id="toastTitle"></div>
+    <div class="toast-body" id="toastBody"></div>
+  </div>
+
+  <script src="scripts/data-store.js" defer></script>
+  <script src="data/config.js" defer></script>
+  <script src="data/base-prompt.js" defer></script>
+  <script src="data/hair-styles.js" defer></script>
+  <script src="data/eye-colors.js" defer></script>
+  <script src="data/hair-colors.js" defer></script>
+  <script src="data/accessories.js" defer></script>
+  <script src="data/bust-sizes.js" defer></script>
+  <script src="scripts/app.js" defer></script>
+</body>
+</html>
+
+
