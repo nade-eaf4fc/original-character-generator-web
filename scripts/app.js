@@ -1087,13 +1087,40 @@
     return `${getCurrentPresetName().replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "_") || "oc_settings"}.json`;
   }
 
-  function downloadSettingsJson() {
+  async function downloadSettingsJson() {
     const payload = `${JSON.stringify(buildSettingsJsonPayload(), null, 2)}\n`;
+    const fileName = buildSettingsDownloadName();
     const blob = new Blob([payload], { type: "application/json" });
+
+    if (typeof window.showSaveFilePicker === "function") {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: fileName,
+          types: [
+            {
+              description: "JSON Files",
+              accept: {
+                "application/json": [".json"],
+              },
+            },
+          ],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        showToast(t("toast.settingsExportedTitle"), t("toast.settingsExportedBody"));
+        return;
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
     const href = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = href;
-    anchor.download = buildSettingsDownloadName();
+    anchor.download = fileName;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
