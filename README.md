@@ -7,6 +7,12 @@
 ![Settings](https://img.shields.io/badge/Settings-Export%20%2F%20Import-f59e0b?style=flat-square)
 ![Storage](https://img.shields.io/badge/Storage-localStorage-374151?style=flat-square)
 
+## Try It Online
+
+- [Open the GitHub Pages version](https://nade-eaf4fc.github.io/original-character-generator-web/)
+- [ComfyUI custom node](https://github.com/nade-eaf4fc/comfyui-original-character-generator)
+- [Follow the creator on X](https://x.com/nade_eaf4fc)
+
 Static web app for generating original character appearance prompts and exporting local `settings_json` files.
 
 ## Quick Start

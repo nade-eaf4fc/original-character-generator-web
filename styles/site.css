@@ -168,6 +168,33 @@ h1 {
   max-width: 760px;
 }
 
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.hero-link-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-main);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.hero-link-chip:hover {
+  border-color: rgba(124, 148, 255, 0.24);
+  background: rgba(124, 148, 255, 0.1);
+  transform: translateY(-1px);
+}
+
 .hero-note {
   position: relative;
   min-width: 280px;
