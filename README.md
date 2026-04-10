@@ -1,5 +1,12 @@
 # original-character-generator-web
 
+![Platform](https://img.shields.io/badge/Platform-Web%20App-1f2937?style=flat-square)
+![UI](https://img.shields.io/badge/UI-JP%20%2F%20EN-2563eb?style=flat-square)
+![Prompt](https://img.shields.io/badge/Prompt-OC%20Generator-0f766e?style=flat-square)
+![Mode](https://img.shields.io/badge/Mode-Single%20%2F%20History-7c3aed?style=flat-square)
+![Settings](https://img.shields.io/badge/Settings-Export%20%2F%20Import-f59e0b?style=flat-square)
+![Storage](https://img.shields.io/badge/Storage-localStorage-374151?style=flat-square)
+
 Static web app for generating original character appearance prompts and exporting local `settings_json` files.
 
 ## Quick Start
